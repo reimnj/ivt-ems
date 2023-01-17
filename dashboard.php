@@ -1,3 +1,31 @@
+<?php
+ob_start();
+require 'includes/dbconfig.php';
+?>
+
+<?php
+
+// Status Count 
+
+$retrieveNoticeCount = "SELECT COUNT(postID) AS totalPost FROM notice";
+$retrieveQuery = mysqli_query($connection, $retrieveNoticeCount);
+$statusCount = mysqli_fetch_assoc($retrieveQuery);
+
+// User Profile Display
+
+$profileID = $_SESSION["user"];
+
+$queryEID  = "SELECT * FROM users WHERE username = '$profileID'";
+$getEmployeeID = mysqli_query($connection, $queryEID);
+$userData = mysqli_fetch_assoc($getEmployeeID);
+
+$employeeID = $userData['employeeID'];
+$queryData = "SELECT * FROM employee WHERE employeeID = '$employeeID'";
+$getEmployeeData = mysqli_query($connection, $queryData);
+$employeeData = mysqli_fetch_assoc($getEmployeeData);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +49,7 @@
                     <span>Dashboard</span></a>
                 </li>
                 <li>
-                    <a href=""><span class="las la-user"></span>
+                    <a href="profile.php"><span class="las la-user"></span>
                     <span>Profile</span></a>
                 </li>
                 <li>
@@ -37,7 +65,7 @@
                     <span>Manage Employee Leave</span></a>
                 </li>
                 <li>
-                    <a href=""><span class="las la-arrow-alt-circle-down"></span>
+                    <a href="logout.php"><span class="las la-arrow-alt-circle-down"></span>
                     <span>Logout</span></a>
                 </li>
             </ul>
@@ -62,8 +90,8 @@
             <div class="user-wrapper">
                 <!-- IMG -->
                 <div>
-                    <h4><!-- NAME -->Aladiah Fulminar</h4>
-                    <small>SE Lead Developer</small>
+                    <h4><?php echo $employeeData['last_name']?>, <?php echo $employeeData['first_name']?></h4>
+                    <small><?php echo $employeeData['position']?></small>
                 </div>
             </div>
         </header>
@@ -94,7 +122,7 @@
     
                 <div class="card-single">
                     <div>
-                        <h1>2</h1>
+                        <h1><?php echo $statusCount['totalPost']; ?></h1>
                         <span>Notice</span>
                     </div>
                     <div>
@@ -114,7 +142,30 @@
             </div>
             <h2 id="notice-header">Notice Board</h2>
             <div class="notice-board">
+                <?php
+                    $retrievePost = "SELECT * FROM notice";
+                    $postQuery = mysqli_query($connection, $retrievePost);
 
+                    if(mysqli_num_rows($postQuery) > 0) {
+                        foreach($postQuery as $noticePost) {
+                            ?>
+                                <div class="notice-content">
+                                    <div class="notice-content-header">
+                                        <p class="nc-author"><?= $noticePost['postAuthor'];?></p>
+                                    </div>
+                                    <hr>
+                                    <div class="notice-content-post">
+                                        <p class="nc-post">
+                                            <?= $noticePost['postContent'];?>
+                                        </p>
+                                    </div>
+                                </div>
+                            <?php
+                        }
+                    } else {
+                        ?> <p class="nc-log">No notices for today!</p> <?php
+                    }
+                ?>
             </div>
         </main>
     </div>

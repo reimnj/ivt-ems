@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins';
+}
+
+.Container{  
+    
+    position: relative;
+    
+}
+
+.Header{
+
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;   
+    z-index: 100;
+    background-color: rgb(111,125,255);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(111,125,255);
+   
+    
+}
+
+.Left-part{
+    display: flex;
+    align-items: center;
+    
+}
+
+.Invictus-Logo{
+    height: 180px;
+    width: 90px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 10px 8px 5px 10px;
+    border-radius: 50px;
+    object-fit: cover;  
+}
+
+.Invictus-Text{
+   
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    color: beige;
+}
+
+.Right-part{
+
+    margin-right: 20px;
+    padding: 10px 20px 10px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 200px;
+    flex-shrink: 0;
+}
+
+.Right-part div{
+   
+    font-size: 20px;
+    color: beige;
+}
+
+/*forms shit*/
+
+.FORMS{
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    position: absolute; 
+    height: 500px;
+    width: 1200px;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);   
+    box-shadow: 8px 8px 5px  rgb(90, 106, 248); 
+}
+
+.about-text{
+    margin-top: 20px;
+    height: 30px;
+    border: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.abouts{
+    font-size: 42px;
+    font-weight: bold;
+    padding-left: 515px;
+    padding-right: 450px;
+    color: rgb(90, 106, 248);     
+    
+}
+
+.picture-container{
+    
+    padding: 70px 50px 70px 50px;
+    margin-left: 40px;
+    margin-right: 40px;
+    display: flex;
+    position: absolute;
+    z-index: 100;
+}
+
+.danpic,
+.haroldpic,
+.aldrinpic,
+.jonelpic,
+.alipic{
+    height: 200px;
+    width: 170px;
+    display: inline-block;
+    border-style: solid;
+    border-width: thin;
+    border-color:rgb(12, 10, 10);
+    object-fit: cover;  
+}
+
+.dancontain,
+.haroldcontain,
+.aldrincontain,
+.jonelcontain,
+.alicontain{
+
+    margin-right: 50px;
+
+}
+
+.danname,
+.haroldname{
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: 30px;
+}
+
+.aldrinname{
+    font-size: 13px;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.jonelname{
+   
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 42px;
+}
+
+.aliname{
+    
+    font-size: 13px;
+    font-weight: bold;
+
+}
+
+.about-us-text{
+    padding: 350px 50px 70px 50px;
+    margin-left: 40px;
+    margin-right: 40px;
+    display: flex;
+    position: absolute;
+    z-index: 100;
+}
+
+.abs-text{
+
+    font-weight: 500;
+    font-size: 16px;
+   
+}

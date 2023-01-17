@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+:root {
+    --main-color: #6F7DFF;
+    --color-dark: #1D2231;
+    --text-grey: #8390A2;
+    
+    --color-card1: #752092;
+    --color-card2: #C957BC;
+    --color-card3: #FFA10E;
+    --color-card4: #9C89FF;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style-type: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: linear-gradient(120deg, #6F7DFF, #FFF16F);
+    height: 100vh;
+}
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+img {
+    width: 100px;
+}
+label {
+    font-weight: 500;
+    margin-left: 8px;
+}
+input {
+    outline: none;
+    border: none;
+    border-radius: 30px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 1em 1em;
+    text-indent: 10px;
+}
+input[type=submit] {
+    background-color: var(--main-color);
+    color: #fff;
+    font-weight: 500;
+}
+
+.f-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #f1f7fe;
+    border-radius: 40px;
+    box-shadow: 5px 5px #888888;
+    height: 95vh;
+    width: 400px;
+    padding: 2em;
+}
+.f-body .form-nav {
+    text-align: center;
+}
+.f-body .form-nav a{
+    color: var(--main-color);
+    font-weight: 500;
+    font-size: 14px;
+}
+.form-header {
+    text-align: center;
+    font-weight: bold;
+    font-size: 17px;
+    margin-top: 20px;
+    margin-bottom: 45px;
+}
+.form-header .error {
+    color: red;
+}
+.form-header .success {
+    color: green;
+}
