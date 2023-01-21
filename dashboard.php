@@ -11,19 +11,6 @@ $retrieveNoticeCount = "SELECT COUNT(postID) AS totalPost FROM notice";
 $retrieveQuery = mysqli_query($connection, $retrieveNoticeCount);
 $statusCount = mysqli_fetch_assoc($retrieveQuery);
 
-// User Profile Display
-
-$profileID = $_SESSION["user"];
-
-$queryEID  = "SELECT * FROM users WHERE username = '$profileID'";
-$getEmployeeID = mysqli_query($connection, $queryEID);
-$userData = mysqli_fetch_assoc($getEmployeeID);
-
-$employeeID = $userData['employeeID'];
-$queryData = "SELECT * FROM employee WHERE employeeID = '$employeeID'";
-$getEmployeeData = mysqli_query($connection, $queryData);
-$employeeData = mysqli_fetch_assoc($getEmployeeData);
-
 ?>
 
 <!DOCTYPE html>
@@ -34,6 +21,7 @@ $employeeData = mysqli_fetch_assoc($getEmployeeData);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Styles/dashboard.css">
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <title>EMS Dashboard</title>
 </head>
 <body>
@@ -45,23 +33,31 @@ $employeeData = mysqli_fetch_assoc($getEmployeeData);
         <div class="sidebar-menu">
             <ul>
                 <li>
-                    <a href="" class="active"><span class="las la-igloo"></span>
+                    <a href="dashboard.php" class="dash-btn"><span class="las la-igloo"></span>
                     <span>Dashboard</span></a>
                 </li>
                 <li>
-                    <a href="profile.php"><span class="las la-user"></span>
-                    <span>Profile</span></a>
+                    <a href="profile.php" class="prof-btn"><span class="las la-user"></span>
+                    <span>Profiles</span></a>
                 </li>
                 <li>
-                    <a href=""><span class="las la-users"></span>
+                    <a href="#" class="feat-btn"><span class="las la-users"></span>
                     <span>Employee</span></a>
+                    <ul class="feat-show">
+                        <li><a href="employee.php">Add New Employee</a></li>
+                        <li><a href="employee_manage.php">Manage Employee</a></li>
+                    </ul>
                 </li>
                 <li>
-                    <a href=""><span class="las la-clipboard"></span>
+                    <a href="#" class="serv-btn"><span class="las la-clipboard"></span>
                     <span>Admin</span></a>
+                    <ul class="serv-show">
+                        <li><a href="admin.php">Add New Admin</a></li>
+                        <li><a href="admin_manage.php">Manage Admin</a></li>
+                    </ul>
                 </li>
                 <li>
-                    <a href=""><span class="las la-clipboard-check"></span>
+                    <a href="employee_leave.php"><span class="las la-clipboard-check"></span>
                     <span>Manage Employee Leave</span></a>
                 </li>
                 <li>
@@ -85,14 +81,6 @@ $employeeData = mysqli_fetch_assoc($getEmployeeData);
             <div class="search-wrapper">
                 <span class="las la-search"></span>
                 <input type="search" placeholder="Search here">
-            </div>
-            
-            <div class="user-wrapper">
-                <!-- IMG -->
-                <div>
-                    <h4><?php echo $employeeData['last_name']?>, <?php echo $employeeData['first_name']?></h4>
-                    <small><?php echo $employeeData['position']?></small>
-                </div>
             </div>
         </header>
 
@@ -170,6 +158,6 @@ $employeeData = mysqli_fetch_assoc($getEmployeeData);
         </main>
     </div>
 
-    
+    <script src="Includes/menu.js"></script>
 </body>
 </html>
