@@ -61,10 +61,8 @@ if(isset($_POST['register'])) {
                         ?>
                     </p>
                 </div>
-                <label for="email">Email</label>
-                <input type="email" name="email" placeholder="Enter a valid email address">
-                <label for="email-repeat">Confirm Email</label>
-                <input type="email" name="email-repeat" placeholder="Re-enter your email address" >
+                <label for="username">Username</label>
+                <input type="email" name="username" placeholder="Username" >
                 <label for="password">Password</label>
                 <input type="password" name="password" placeholder="Enter your password">
                 <label for="password-repeat">Confirm your password</label>

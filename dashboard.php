@@ -9,7 +9,46 @@ require 'includes/dbconfig.php';
 
 $retrieveNoticeCount = "SELECT COUNT(postID) AS totalPost FROM notice";
 $retrieveQuery = mysqli_query($connection, $retrieveNoticeCount);
-$statusCount = mysqli_fetch_assoc($retrieveQuery);
+$noticeCount = mysqli_fetch_assoc($retrieveQuery);
+
+$retrieveLeaveCount = "SELECT COUNT(leaveID) AS totalLeave FROM employee_leave";
+$retrieveQuery1 = mysqli_query($connection, $retrieveLeaveCount);
+$leaveCount = mysqli_fetch_assoc($retrieveQuery1);
+
+$retrieveDepartmentCount = "SELECT COUNT(departmentID) AS totalDepartment FROM department";
+$retrieveQuery2 = mysqli_query($connection, $retrieveDepartmentCount);
+$departmentCount = mysqli_fetch_assoc($retrieveQuery2);
+
+$retrieveEmployeeCount = "SELECT COUNT(employeeID) AS totalEmployee FROM employee";
+$retrieveQuery3 = mysqli_query($connection, $retrieveEmployeeCount);
+$employeeCount = mysqli_fetch_assoc($retrieveQuery3);
+
+// Retrieve Department Data
+
+$retrieveDept = "SELECT * FROM department";
+$retrieveQuery4 = mysqli_query($connection, $retrieveDept);
+
+// Delete Notice
+
+if(isset($_GET['postID'])) {
+
+    $pID = $_GET['postID'];
+
+    $deleteNotice = "DELETE FROM notice WHERE postID='$pID'";
+    $executeDeleteNotice = mysqli_query($connection, $deleteNotice);
+    header("Location:dashboard.php?del=success");
+}
+
+// Delete Department
+
+if(isset($_GET['dID'])) {
+    $dID = $_GET['dID'];
+
+    $deleteDept = "DELETE FROM department WHERE departmentID='$dID'";
+    $executeDeleteDept = mysqli_query($connection, $deleteDept);
+    header("Location:dashboard.php?deptDel=success");
+
+}
 
 ?>
 
@@ -77,11 +116,6 @@ $statusCount = mysqli_fetch_assoc($retrieveQuery);
 
                 Dashboard
             </h2>
-
-            <div class="search-wrapper">
-                <span class="las la-search"></span>
-                <input type="search" placeholder="Search here">
-            </div>
         </header>
 
         <main>
@@ -90,8 +124,8 @@ $statusCount = mysqli_fetch_assoc($retrieveQuery);
                 <div class="card-single">
                     <div>
                         <!-- Count -->
-                        <h1>51</h1>
-                        <span>Users</span>
+                        <h1><?php echo $employeeCount['totalEmployee']; ?></h1>
+                        <span>Employees</span>
                     </div>
                     <div>
                         <span class="las la-users la-4x"></span>
@@ -100,7 +134,7 @@ $statusCount = mysqli_fetch_assoc($retrieveQuery);
     
                 <div class="card-single">
                     <div>
-                        <h1>5</h1>
+                        <h1><?php echo $departmentCount['totalDepartment']; ?></h1>
                         <span>Department</span>
                     </div>
                     <div>
@@ -110,7 +144,7 @@ $statusCount = mysqli_fetch_assoc($retrieveQuery);
     
                 <div class="card-single">
                     <div>
-                        <h1><?php echo $statusCount['totalPost']; ?></h1>
+                        <h1><?php echo $noticeCount['totalPost']; ?></h1>
                         <span>Notice</span>
                     </div>
                     <div>
@@ -120,7 +154,7 @@ $statusCount = mysqli_fetch_assoc($retrieveQuery);
     
                 <div class="card-single">
                     <div>
-                        <h1>2</h1>
+                        <h1><?php echo $leaveCount['totalLeave']; ?></h1>
                         <span>On Leave</span>
                     </div>
                     <div>
@@ -128,7 +162,32 @@ $statusCount = mysqli_fetch_assoc($retrieveQuery);
                     </div>
                 </div>
             </div>
+            <h2 id="notice-header">Admin Dashboard Quick Menu</h2>
+            <div class="card-nav">
+                <div>
+                    <a href="notice_add.php"><span class="las la-plus-square la-2x"></span>Create a New Notice</a>
+                </div>
+                <div>
+                    <a href="department_add.php"><span class="las la-plus-square la-2x"></span>Create a Department</a>
+                </div>
+                <div>
+                    <a href="employee.php"><span class="las la-plus-square la-2x"></span>Create Employee Profile</a>
+                </div>
+                <div>
+                    <a href="employee_leave.php"><span class="las la-plus-square la-2x"></span>Create Employee Leave</a>
+                </div>
+                <div>
+                    <a href="admin.php"><span class="las la-plus-square la-2x"></span>Create Administrator Account</a>
+                </div>
+            </div>
             <h2 id="notice-header">Notice Board</h2>
+            <p style="color: var(--main-color); margin-bottom: 10px; font-weight: 500;">
+                <?php
+                    if(isset($_GET['del'])) {
+                        echo "The notice has been deleted successfully!";
+                    }
+                ?>
+            </p>
             <div class="notice-board">
                 <?php
                     $retrievePost = "SELECT * FROM notice";
@@ -139,13 +198,24 @@ $statusCount = mysqli_fetch_assoc($retrieveQuery);
                             ?>
                                 <div class="notice-content">
                                     <div class="notice-content-header">
-                                        <p class="nc-author"><?= $noticePost['postAuthor'];?></p>
+                                        <p class="nc-subject"><?= $noticePost['postSubject'];?></p>
                                     </div>
                                     <hr>
                                     <div class="notice-content-post">
                                         <p class="nc-post">
                                             <?= $noticePost['postContent'];?>
                                         </p>
+                                    </div>
+                                    <hr>
+                                    <div class="notice-content-footer">
+                                        <div>
+                                            <p class="nc-author">Author: <?= $noticePost['postAuthor'];?></p>
+                                            <p class="nc-date">Date Posted: <?= $noticePost['postDate'];?></p>
+                                        </div>
+                                        <div>
+                                            <button><a href="notice_edit.php?postID=<?=$noticePost['postID'];?>"><span class="las la-edit la-3x"></span></a></button>
+                                            <button><a href="dashboard.php?postID=<?=$noticePost['postID'];;?>"><span class="las la-trash la-3x"></span></a></button>
+                                        </div>
                                     </div>
                                 </div>
                             <?php
@@ -154,6 +224,43 @@ $statusCount = mysqli_fetch_assoc($retrieveQuery);
                         ?> <p class="nc-log">No notices for today!</p> <?php
                     }
                 ?>
+            </div>
+            <h2 id="notice-header">Department Board</h2>
+            <p style="color: var(--main-color); margin-bottom: 10px; font-weight: 500;">
+                <?php
+                    if(isset($_GET['deptDel'])) {
+                        echo "The department has been deleted successfully!";
+                    }
+                ?>
+            </p>
+            <div class="department-board">
+                <div class="department-table">
+                    <table>
+                        <tr class="head">
+                            <th>Department ID</th>
+                            <th>Department Name</th>
+                            <th>Action</th>
+                        </tr>
+                        <?php
+                            if(mysqli_num_rows($retrieveQuery4) > 0) {
+                                foreach($retrieveQuery4 as $deptData) {
+                                    ?>
+                                    <tr class="body">
+                                        <td><?php echo $deptData['departmentID'];?></td>
+                                        <td><?php echo $deptData['department_name'];?></td>
+                                        <td class="action">
+                                            <button><a href="department_edit.php?dID=<?=$deptData['departmentID'];?>"><span class="las la-edit la-2x"></span></a></button>
+                                            <button><a href="dashboard.php?dID=<?=$deptData['departmentID'];?>"><span class="las la-trash la-2x"></span></a></button>
+                                        </td>
+                                    </tr>             
+                                    <?php
+                                }
+                            } else {
+                                echo "<td>-</td>" . "<td>-</td>" . "<td>-</td>" . "<td>-</td>" . "<td>-</td>" . "<td>-</td>" . "<td>-</td>";
+                            }
+                        ?> 
+                    </table>
+                </div>
             </div>
         </main>
     </div>

@@ -4,21 +4,19 @@ ob_start();
 
 require 'includes/dbconfig.php';
 
-// Retrieve Employee Data
+// Retrieve admin Data
 
-$query = "SELECT * FROM employee";
+$query = "SELECT * FROM users";
 $executeQuery = mysqli_query($connection, $query);
 
-// Delete Employee Data
+// Delete admin Data
 
-if(isset($_GET['empID'])) {
+if(isset($_GET['admID'])) {
 
-    $empID = $_GET['empID'];
-    $delQuery = "DELETE FROM employee WHERE employeeID = '$empID'";
-    $delPicQuery = "DELETE FROM employee_pic WHERE empID = '$empID'";
+    $admID = $_GET['admID'];
+    $delQuery = "DELETE FROM users WHERE loginID = '$admID'";
     $executeDelQuery = mysqli_query($connection, $delQuery);
-    $executePicDelQuery = mysqli_query($connection, $delPicQuery);
-    header("Location:employee_manage.php?del=success");
+    header("Location:admin_manage.php?del=success");
     exit(0);
 
 }
@@ -31,11 +29,11 @@ if(isset($_GET['empID'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
-    <link rel="stylesheet" href="Styles/employee.css">
+    <link rel="stylesheet" href="Styles/admin.css">
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <title>EMS Manage Employees</title>
+    <title>EMS Manage Admin</title>
 </head>
 <body>
     <div class="sidebar">
@@ -88,7 +86,7 @@ if(isset($_GET['empID'])) {
                     <span class="las la-bars"></span>
                 </label>
 
-                Manage Employee
+                Manage admin
             </h2>
         </header>
 
@@ -96,47 +94,38 @@ if(isset($_GET['empID'])) {
             <p>
                 <?php
                     if(isset($_GET['del'])) {
-                        echo "Employee record has been deleted!";
+                        echo "Admin record has been deleted!";
+                    }
+                    if(isset($_GET['status'])) {
+                        echo "Admin record has been updated!";
                     }
                 ?>
             </p>
-            <div class="employee-table">
+            <div class="admin-table">
                 <table>
                     <tr class="head">
-                        <th>Employee ID</th>
+                        <th>Login ID</th>
+                        <th>Username</th>
+                        <th>Password</th>
                         <th>Full Name</th>
-                        <th>Age</th>
-                        <th>Gender</th>
-                        <th>Contact No.</th>
-                        <th>Address</th>
-                        <th>Birth Date</th>
-                        <th>Marital Status</th>
-                        <th>Nationality</th>
-                        <th>Department</th>
-                        <th>Position</th>
+                        <th>Department & Position</th>
                         <th>Action</th>
                     </tr>
                     <?php
                         if(mysqli_num_rows($executeQuery) > 0) {
-                            foreach($executeQuery as $employeeData) {
+                            foreach($executeQuery as $adminData) {
                                 ?>
                                 <tr class="body">
-                                    <td><?php echo $employeeData['employeeID'];?></td>
+                                    <td><?php echo $adminData['loginID'];?></td>
+                                    <td><?php echo $adminData['username'];?></td>
+                                    <td><?php echo $adminData['password'];?></td>
                                     <td>
-                                        <?php echo $employeeData['last_name'];?>, <?php echo $employeeData['first_name'];?> <?php echo $employeeData['middle_initial'];?>.
+                                        <?php echo $adminData['last_name'];?>, <?php echo $adminData['first_name'];?> <?php echo $adminData['middle_initial'];?>.
                                     </td>
-                                    <td><?php echo $employeeData['age'];?></td>
-                                    <td><?php echo $employeeData['gender'];?></td>
-                                    <td><?php echo $employeeData['contact_no'];?></td>
-                                    <td class="address"><?php echo $employeeData['address'];?></td>
-                                    <td><?php echo $employeeData['birthdate'];?></td>
-                                    <td><?php echo $employeeData['marital_status'];?></td>
-                                    <td><?php echo $employeeData['nationality'];?></td>
-                                    <td><?php echo $employeeData['department'];?></td>
-                                    <td><?php echo $employeeData['position'];?></td>
+                                    <td><?php echo $adminData['deptPosition'];?></td>
                                     <td class="action">
-                                        <button><a href="profile_edit.php?empID=<?=$employeeData['employeeID'];?>"><span class="las la-edit la-2x"></span></a></button>
-                                        <button><a href="employee_manage.php?empID=<?=$employeeData['employeeID'];?>"><span class="las la-trash la-2x"></span></a></button>
+                                        <button><a href="admin_edit.php?admID=<?=$adminData['loginID'];?>"><span class="las la-edit la-2x"></span></a></button>
+                                        <button><a href="admin_manage.php?admID=<?=$adminData['loginID'];?>"><span class="las la-trash la-2x"></span></a></button>
                                     </td>
                                 </tr>             
                                 <?php
@@ -151,8 +140,8 @@ if(isset($_GET['empID'])) {
         </main>
     </div>
     <script>
-        $('.feat-btn').toggleClass("active");
-        $('.sidebar-menu ul .feat-show').toggleClass("show");
+        $('.serv-btn').toggleClass("active");
+        $('.sidebar-menu ul .serv-show').toggleClass("show");
 
 
         $('.feat-btn').click(function(){

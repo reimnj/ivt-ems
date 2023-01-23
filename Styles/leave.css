@@ -28,6 +28,15 @@ img {
     object-fit: cover;
 }
 
+select {
+    width: 400px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    color: var(--color-dark);
+    padding: .5rem;
+    margin-top: 20px;
+}
+
 /* Scrollbar */
 
 /* width */
@@ -249,9 +258,9 @@ main {
 .profile-header {
     display: flex;
     justify-content: space-between;
-    flex-direction: column;
     gap: 1.5rem;
-    margin-left: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
     margin-bottom: 15px;
 }
 .profile-header h2 {
@@ -302,18 +311,25 @@ main {
     margin-top: 10px;
     width: 400px;
 }
+.profile-header-details input[type=submit] {
+    background-color: var(--main-color);
+    color: #fff;
+    cursor: pointer;
+    font-weight: 500;
+    width: 200px;
+    margin: 100px auto;
+}
 .profile-main-content div input[type=submit] {
     background-color: var(--main-color);
     color: #fff;
     cursor: pointer;
 }
 
-/* employee_manage css */
+/* employee_leave css */
 
 main {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
 }
 main p {
     margin-bottom: 20px;
@@ -322,7 +338,7 @@ main p {
     color: var(--main-color);
 }
 
-.employee-table {
+.admin-table {
     width: auto;
     background: #fafafa;
     border-spacing: 0;
@@ -365,7 +381,7 @@ tr:nth-child(odd) button span {
 }
 .address {
     padding: 0px 10px;
-    white-space:break-spaces;
+    white-space: break-spaces;
 }
 .action {
     display: flex;
@@ -374,8 +390,29 @@ tr:nth-child(odd) button span {
     gap: 10px;
 }
 
+.leave-stats {
+    margin-left: 50px;
+}
+.leave-stats th {
+    text-align: left;
+}
+.leave-stats td {
+    width: 200px;
+    text-align: center;
+    background-color: #fafafa;
+}
+.leave-stats .leave-action a {
+    display: flex;
+    align-items: center;
+    color: var(--main-color);
+    font-weight: 500;
+    font-size: 18px;
+}
+.leave-action {
+    margin-top: 20px;
+    padding: 1rem;
+    background-color: #fafafa;
+}
 
-
-
-
+/* employee_leave_add css */
 

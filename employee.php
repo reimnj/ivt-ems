@@ -38,6 +38,23 @@ if(isset($_POST['create'])) {
 
 }
 
+if(isset($_POST['upload'])) {
+
+    $empID = $_POST['emp-id'];
+    $filename = $_FILES["uploadfile"]["name"];
+    $tempname = $_FILES["uploadfile"]["tmp_name"];
+    $folder = "profile_img/" . $filename;
+
+    $uploadQuery = "INSERT INTO employee_pic(empID, filenamePic) VALUES ('$empID','$filename')";
+    mysqli_query($connection, $uploadQuery);
+
+    if(move_uploaded_file($tempname, $folder)) {
+        echo "<h3>  Image uploaded successfully!</h3>";
+    } else {
+        echo "<h3>  Failed to upload image!</h3>";
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -105,36 +122,48 @@ if(isset($_POST['create'])) {
 
                 Employee
             </h2>
-
-            <div class="search-wrapper">
-                <span class="las la-search"></span>
-                <input type="search" placeholder="Search here">
-            </div>
         </header>
 
         <main>
             <div class="profile-wrapper">
-                <form action="" method="post">
+                <form action="" method="post" enctype="multipart/form-data">
                 <div class="profile-header">
                     <div class="profile-header-details">
                         <h2>Main Details</h2><p>Status: </p><p style="color: var(--main-color);"><?php if(isset($_GET['update'])) echo "New employee has been added!"; ?></p>
+                        <p style="margin-bottom: 20px;">Profile Picture</p>
+                        <div class="profile-picture">
+                            <?php
+                                $picQuery = "SELECT * FROM employee_pic WHERE empID = '$empID'";
+                                $executePicQuery = mysqli_query($connection, $picQuery);
+
+                                if(isset($_POST['upload'])) {
+                                    while($picData = mysqli_fetch_assoc($executePicQuery)) {
+                            ?>
+                                <img src="./profile_img/<?php echo $picData['filenamePic'];?>">
+                            <?php
+                                    }
+                                }
+                            ?>
+                        </div>
+                        <div class="form-group">
+                                <input class="form-control" type="file" name="uploadfile" value="" />
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" name="upload" style="color: #fff; background-color: var(--main-color); border: none; border-radius: 10px;padding: 5px 10px; cursor: pointer; margin-top: 20px; margin-bottom: 20px;">UPLOAD</button>
+                            </div>
+                            <div>
+                                <h4>Employee ID (System Generated)</h4>
+                                <input type="text" name="emp-id" value="<?php echo $empID?>" readonly>
+                        </div>
                         <p>Name</p>
                         <h2><input type="text" name="lastname" placeholder="Last Name"> <input type="text" name="firstname" placeholder="First Name & Second Name (if applicable)"> <input type="text" name="middle_initial" placeholder="Middle Initial"></h2>
                         <p>Department</p>
                         <h3><input type="text" name="department" placeholder="Assign department (Ex.: IT-SE)"></h3>
                     </div>
-                    <div class="profile-picture">
-                        <img src="Logo/Ali.jpg" alt="">
-                        <a href="">Add/Edit Photo</a>
-                    </div>
                 </div>
                 <hr>
                 <h2>Additional Details <span style="font-size: 14px; color: var(--main-color);">(Add new employee)</span></h2>
                     <div class="profile-main-content">
-                        <div>
-                            <h4>Employee ID (System Generated)</h4>
-                            <input type="text" name="emp-id" value="<?php echo $empID?>" readonly>
-                        </div>
                         <div>
                             <h4>Age:</h4>
                             <input type="text" name="age">
@@ -153,7 +182,7 @@ if(isset($_POST['create'])) {
                         </div>
                         <div>
                             <h4>Birthdate:</h4>
-                            <input type="text" name="birthdate">
+                            <input type="date" name="birthdate">
                         </div>
                         <div>
                             <h4>Blood Type:</h4>

@@ -45,7 +45,7 @@ input {
     padding: 1em 1em;
     text-indent: 10px;
 }
-input[type=submit] {
+input[type=submit] {Kae Garrucha
     background-color: var(--main-color);
     color: #fff;
     font-weight: 500;
@@ -58,7 +58,7 @@ input[type=submit] {
     background: #f1f7fe;
     border-radius: 40px;
     box-shadow: 5px 5px #888888;
-    height: 95vh;
+    height: 75vh;
     width: 400px;
     padding: 2em;
 }

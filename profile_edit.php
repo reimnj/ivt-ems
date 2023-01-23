@@ -99,19 +99,6 @@ if(isset($_POST['update'])) {
 
                 Profile
             </h2>
-
-            <div class="search-wrapper">
-                <span class="las la-search"></span>
-                <input type="search" placeholder="Search here">
-            </div>
-            
-            <div class="user-wrapper">
-                <!-- IMG -->
-                <div>
-                    <h4><?php echo $employeeData['last_name']?>, <?php echo $employeeData['first_name']?></h4>
-                    <small><?php echo $employeeData['position']?></small>
-                </div>
-            </div>
         </header>
 
         <main>
@@ -153,7 +140,7 @@ if(isset($_POST['update'])) {
                         </div>
                         <div>
                             <h4>Birthdate:</h4>
-                            <input type="text" name="birthdate" value="<?php echo $employeeData['birthdate']?>">
+                            <input type="date" name="birthdate" value="<?php echo $employeeData['birthdate']?>">
                         </div>
                         <div>
                             <h4>Blood Type:</h4>

@@ -249,7 +249,6 @@ main {
 .profile-header {
     display: flex;
     justify-content: space-between;
-    flex-direction: column;
     gap: 1.5rem;
     margin-left: 20px;
     margin-bottom: 15px;
@@ -302,13 +301,20 @@ main {
     margin-top: 10px;
     width: 400px;
 }
+.profile-header-details input[type=submit] {
+    background-color: var(--main-color);
+    color: #fff;
+    cursor: pointer;
+    font-weight: 500;
+    margin-top: 20px;
+}
 .profile-main-content div input[type=submit] {
     background-color: var(--main-color);
     color: #fff;
     cursor: pointer;
 }
 
-/* employee_manage css */
+/* admin_manage css */
 
 main {
     display: flex;
@@ -322,7 +328,7 @@ main p {
     color: var(--main-color);
 }
 
-.employee-table {
+.admin-table {
     width: auto;
     background: #fafafa;
     border-spacing: 0;
@@ -373,9 +379,3 @@ tr:nth-child(odd) button span {
     align-items: center;
     gap: 10px;
 }
-
-
-
-
-
-

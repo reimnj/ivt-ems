@@ -221,7 +221,22 @@ main {
     margin-top: 20px;
     margin-bottom: 20px;
 }
-.notice-board {
+.card-nav {
+    display: flex;
+    justify-content: center;
+}
+.card-nav a{
+    display: flex;
+    width: 300px;
+    border-radius: 10px;
+    padding: 10px 0px;
+    align-items: center;
+    color: var(--main-color);
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.notice-board,
+.department-board {
     display: flex;
     flex-direction: column;
     background-color: var(--main-color);
@@ -234,26 +249,123 @@ main {
     text-align: justify;
     text-justify: inter-word;
 }
+.department-board {
+    display: flex;
+}
 .notice-content {
     background-color: white;
     border-radius: 2px;
     padding: 1rem;
 }
 .notice-content-header {
-    display: flex;
-    align-items: center;
-    border-radius: 5px;
-    padding: .5rem;
+    text-align: center;
+    width: 100%;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.nc-author,
+.nc-subject,
+.nc-date {
+    border-radius: 20px;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    padding: .75rem .5rem;
+}
+.nc-author,
+.nc-date {
+    font-size: 14px;
+}
+.nc-author {
+    background-color: var(--color-card1);
+}
+.nc-subject {
+    background-color: var(--color-card2);
+}
+.nc-date {
+    background-color: var(--color-card3);
 }
 .notice-content-post {
     border-radius: 5px;
     margin-top: 10px;
     padding: 2rem;
+    font-size: 16px;
+}
+.notice-content-footer {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.notice-content-footer div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.notice-content-footer div button {
+    border: none;
+    background-color: white;
+}
+.notice-content-footer div button a span {
+    color: var(--main-color);
 }
 .nc-log {
     text-align: center;
 }
-
+.department-board {
+    align-items: center;
+    justify-content: center;
+}
+.department-table {
+    width: 435px;
+    background: #fafafa;
+    border-spacing: 0;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 12px 5px rgba(32,32,32,.3);
+    font-size: 16px;
+    overflow: hidden;
+    text-align: center;
+}
+th {
+    background: var(--main-color);
+    color: #fafafa;
+    text-transform: uppercase;
+}
+th{
+    padding: 10px 15px;
+}
+tr:nth-child(odd) {
+    background-color: #eeeeee;
+}
+td {
+    white-space: nowrap;
+    padding: 10px 0px;
+}
+td a,
+td a button {
+    color: var(--main-color);
+}
+td button {
+    border: none;
+    background-color: #fafafa;
+    cursor: pointer;
+}
+td button span{
+    color: var(--main-color);
+}
+tr:nth-child(odd) button span {
+    width: 100%;
+    background-color: #eeeeee;
+}
+.address {
+    padding: 0px 10px;
+    white-space:break-spaces;
+}
+.action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
 
 
 

@@ -4,6 +4,10 @@ ob_start();
 
 require 'includes/dbconfig.php';
 
+// Display Profile Pic
+
+
+
 if(isset($_POST['update'])) {
 
     $age = $_POST['age'];
@@ -89,11 +93,6 @@ if(isset($_POST['update'])) {
 
                 Profile
             </h2>
-
-            <div class="search-wrapper">
-                <span class="las la-search"></span>
-                <input type="search" placeholder="Search here">
-            </div>
         </header>
 
         <main>
@@ -107,7 +106,18 @@ if(isset($_POST['update'])) {
                             <div class="profile-wrapper">
                                 <div class="profile-header">
                                     <div class="profile-picture">
-                                        <img src="Logo/Ali.jpg" alt="">
+                                        <?php
+                                            $empID = $employee['employeeID'];
+                                            $picQuery = "SELECT * FROM employee_pic WHERE empID = '$empID'";
+                                            $executePicQuery = mysqli_query($connection, $picQuery);
+
+                                            
+                                            while($picData = mysqli_fetch_assoc($executePicQuery)) {
+                                        ?>
+                                            <img src="./profile_img/<?php echo $picData['filenamePic'];?>">
+                                        <?php
+                                            }
+                                        ?>
                                     </div>
                                     <div class="profile-header-details">
                                         <h2><?php echo $employee['last_name']?>, <?php echo $employee['first_name'] . " "; echo $employee['middle_initial'];?></h2>
